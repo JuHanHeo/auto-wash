@@ -47,7 +47,7 @@ class AutoWash {
         // await page.waitFor(4000);
         // await page.keyboard.press('Enter');
 
-        // await browser.close()
+        await browser.close()
     }
 
 }

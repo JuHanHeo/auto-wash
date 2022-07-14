@@ -9,10 +9,14 @@ class Schedule {
 
     daySchedule(params) {
         const rule = new schedule.RecurrenceRule();
-        rule.second = 11;
-        rule.minute = 11;
-        rule.hour = 11;
+        rule.second = [];
+        rule.minute = [];
+        rule.hour = [];
         rule.tz = 'Asia/Seoul';
+
+        rule.second.push(params.second);
+        rule.minute.push(params.minute);
+        rule.hour.push(params.hour);
 
         const job = schedule.scheduleJob(rule, async () => {
 
