@@ -6,6 +6,7 @@ class AutoWash {
         this._passwd = params.passwd;
         this._url = 'https://autowash.co.kr/member/login.php';
         this._checkUrl = 'https://autowash.co.kr/event/attend_stamp.php?sno=3';
+        this._logoutUrl = 'https://autowash.co.kr/member/logout.php?returnUrl=';
     }
 
     async getBrowser() {
@@ -46,6 +47,8 @@ class AutoWash {
         // await page.click('button[id="attendanceCheck"]')
         // await page.waitFor(4000);
         // await page.keyboard.press('Enter');
+        await page.goto(this._logoutUrl);
+        await page.waitForNavigation();
 
         await browser.close()
     }
