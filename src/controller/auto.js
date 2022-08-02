@@ -30,27 +30,37 @@ class AutoWash {
         // await page.waitForNavigation({
         //     waitUntil: 'domcontentloaded',
         // });
+        try {
+            page.on('dialog', async dialog => {
+                console.log(dialog.message());
 
-        page.on('dialog', async dialog => {
-            console.log(dialog.message());
-            await dialog.dismiss();
-            await browser.close();
-            return;
-        });
-        await page.goto(this._checkUrl);
-        await page.waitFor(4000);
+                try {
+                    await dialog.dismiss();
+                    await page.waitForNavigation();
+                    await page.goto(this._logoutUrl);
+                    await browser.close()
+                } catch (e){
+                    console.log(e)
+                }
 
-        let selector = 'button[id="attendanceCheck"]';
-        await page.evaluate((selector) => document.querySelector(selector).click(), selector);
+                // await browser.close();
+                return;
+            });
+            await page.goto(this._checkUrl);
+            await page.waitFor(4000);
+
+            let selector = 'button[id="attendanceCheck"]';
+            await page.evaluate((selector) => document.querySelector(selector).click(), selector);
 
 
-        // await page.click('button[id="attendanceCheck"]')
-        // await page.waitFor(4000);
-        // await page.keyboard.press('Enter');
-        await page.goto(this._logoutUrl);
-        await page.waitForNavigation();
+            // await page.click('button[id="attendanceCheck"]')
+            // await page.waitFor(4000);
+            // await page.keyboard.press('Enter');
 
-        await browser.close()
+        } catch (e) {
+            console.log(e);
+        }
+
     }
 
 }
